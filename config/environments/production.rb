@@ -109,5 +109,7 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
-  cofig.secret_key_base = ENV["SECRET_KEY_BASE"]
+  
+  # secret key base
+  config.secret_key_base = ENV["SECRET_KEY_BASE"]
 end
