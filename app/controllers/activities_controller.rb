@@ -2,9 +2,17 @@ class ActivitiesController < ApplicationController
     def index
         @activities = current_user.activities
     end
+
+    def show
+        @activity = Activity.find(params[:id])
+    end
     
     def new
         @activity = Activity.new
+    end
+
+    def edit
+        @activity = Activity.find(params[:id])
     end
 
     def create
@@ -17,8 +25,21 @@ class ActivitiesController < ApplicationController
         end
     end
 
-    def show
+    def update
         @activity = Activity.find(params[:id])
+       
+        if @activity.update(activity_params)
+          redirect_to @activity
+        else
+          render 'edit'
+        end
+    end
+
+    def destroy
+        @activity = Activity.find(params[:id])
+        @activity.destroy
+       
+        redirect_to activities_path
     end
 
     private
