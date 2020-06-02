@@ -4,5 +4,26 @@
 <%= @activity.name %>
 </p>
 
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+    <th></th>
+  </tr>
+ 
+  <% @activity.entries.each do |entry| %>
+    <tr>
+      <td><%= entry.title %></td>
+      <td><%= entry.text %></td>
+      <td><%= link_to 'Show', entry_path(entry) %></td>
+      <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+      <td><%= link_to 'Destroy', entry_path(entry),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
 <%= link_to 'Edit', edit_activity_path(@activity) %> |
-<%= link_to 'Back', activities_path %>
+<%= link_to 'Back', activities_path %> |
+<%= link_to 'New Entry', '/entries/new/' + @activity.id.to_s %> 

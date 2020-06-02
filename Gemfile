@@ -55,3 +55,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # User Authentication
 gem 'devise'
+
+# Logging
+gem 'log4r'

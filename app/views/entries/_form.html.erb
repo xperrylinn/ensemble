@@ -1,5 +1,7 @@
 <%= form_with model: @entry, local: true do |form| %>
- 
+    
+    <%= form.hidden_field :activity_id, :value => @entry.activity_id %>
+    
     <% if @entry.errors.any? %>
       <div id="error_explanation">
         <h2>
@@ -15,10 +17,15 @@
     <% end %>
    
     <p>
-      <%= form.label :name %><br>
-      <%= form.text_field :name %>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
     </p>
    
+    <p>
+      <%= form.label :text %><br>
+      <%= form.text_area :text %>
+    </p>
+    
     <p>
       <%= form.submit %>
     </p>

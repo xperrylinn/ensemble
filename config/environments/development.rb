@@ -62,4 +62,8 @@ Rails.application.configure do
 
   # Devise mailer development configuration
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Logging
+  # config.logger = Logger.new(STDOUT)
+  # config.logger = Log4r::Logger.new("Application Log")
 end
