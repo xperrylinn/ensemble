@@ -58,3 +58,6 @@ gem 'devise'
 
 # Logging
 gem 'log4r'
+
+# AWS SDK S3
+gem "aws-sdk-s3", require: false

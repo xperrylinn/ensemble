@@ -1,4 +1,10 @@
 <h1>My Activites!</h1>
+<% if current_user.avatar.attached? %>
+  <%= image_tag current_user.avatar %>
+<% end %>
+<br>
+<br>
+
 <%= link_to 'New activity', new_activity_path %>
 <table>
   <tr>
