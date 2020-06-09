@@ -8,11 +8,8 @@ class EntriesController < ApplicationController
     end
 
     def new
-        # @activity = Activity.find(params[:id])
         @entry = Entry.new(activity_id: params[:id])
-        # @entry.activity_id = params[:id]
         logger.debug "Hey!? DEBUG!! #{@entry.instance_variables}"
-        # logger.debug "Hey!? DEBUG!! #{params}"
     end
 
     def edit
@@ -22,6 +19,7 @@ class EntriesController < ApplicationController
     def create
         @entry = Entry.new(entry_params)
         logger.debug "Hey!? DEBUG!! #{entry_params}"
+        @entry.images.attach(params[:images])
         if @entry.save
           redirect_to @entry
         else
@@ -31,7 +29,7 @@ class EntriesController < ApplicationController
 
     def update
         @entry = Entry.find(params[:id])
-       
+        @entry.images.attach(params[:images])
         if @entry.update(entry_params)
           redirect_to @entry
         else
@@ -49,6 +47,6 @@ class EntriesController < ApplicationController
     private
     def entry_params
         logger.debug "Hey!? DEBUG!! #{params}"
-        params.require(:entry).permit(:title, :text, :activity_id)
+        params.require(:entry).permit(:title, :text, :activity_id, :images)
     end
 end

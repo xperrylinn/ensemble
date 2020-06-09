@@ -8,5 +8,10 @@
 <strong>Text:</strong>
 <%= @entry.text %>
 </p>
+<%= debug @entry %>
+<% if @entry.images.attached? %>
+  <%= image_tag @entry.images[0] %>
+<% end %>
+
 <%= link_to 'Edit', edit_entry_path(@entry) %> |
 <%= link_to 'Back', entries_path %>
