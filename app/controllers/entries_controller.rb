@@ -17,6 +17,7 @@ class EntriesController < ApplicationController
     end
 
     def create
+        logger.debug "Hey!? DEBUG!! #{params}"
         @entry = Entry.new(entry_params)
         logger.debug "Hey!? DEBUG!! #{entry_params}"
         @entry.images.attach(params[:images])

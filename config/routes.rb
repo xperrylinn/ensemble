@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :running_entries
   devise_for :users
   get 'welcome/index'
   get '/entries/new/:id', to: 'entries#new'

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Running Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Strava activity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @running_entries.each do |running_entry| %>
+      <tr>
+        <td><%= running_entry.strava_activity %></td>
+        <td><%= link_to 'Show', running_entry %></td>
+        <td><%= link_to 'Edit', edit_running_entry_path(running_entry) %></td>
+        <td><%= link_to 'Destroy', running_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Running Entry', new_running_entry_path %>
