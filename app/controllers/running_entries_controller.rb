@@ -19,8 +19,9 @@ class RunningEntriesController < ApplicationController
 
   # GET /running_entries/new
   def new
-    # logger.debug FinalRedirectUrl.final_redirect_url("http://www.strava.com/oauth/authorize?client_id=49662&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all")
-    redirect_to "http://www.strava.com/oauth/authorize?client_id=49662&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=activity:read_all"
+    redirect_to "http://www.strava.com/oauth/authorize?client_id=" + ENV["STRAVA_CLIENT_ID"] +
+                "&response_type=code&redirect_uri=" + ENV["STRAVA_REDIRECT_URI"] + 
+                "&approval_prompt=force&scope=" + ENV["STRAVA_REQUESTED_SCOPES"]
   end
 
   # GET /running_entries/1/edit

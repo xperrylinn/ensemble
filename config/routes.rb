@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'strava/exchange_token'
   resources :running_entries
   devise_for :users
   get 'welcome/index'
