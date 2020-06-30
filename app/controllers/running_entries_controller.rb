@@ -12,9 +12,15 @@ class RunningEntriesController < ApplicationController
   def show
   end
 
+  # # GET /running_entries/new
+  # def new
+  #   @running_entry = RunningEntry.new
+  # end
+
   # GET /running_entries/new
   def new
-    @running_entry = RunningEntry.new
+    # logger.debug FinalRedirectUrl.final_redirect_url("http://www.strava.com/oauth/authorize?client_id=49662&response_type=code&redirect_uri=http://localhost/exchange_token&approval_prompt=force&scope=activity:read_all")
+    redirect_to "http://www.strava.com/oauth/authorize?client_id=49662&response_type=code&redirect_uri=http://localhost:3000/exchange_token&approval_prompt=force&scope=activity:read_all"
   end
 
   # GET /running_entries/1/edit

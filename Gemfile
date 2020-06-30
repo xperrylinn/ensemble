@@ -61,3 +61,8 @@ gem 'log4r'
 
 # AWS SDK S3
 gem "aws-sdk-s3", require: false
+
+# Final Redirect URL
+gem 'final_redirect_url'
+
+
