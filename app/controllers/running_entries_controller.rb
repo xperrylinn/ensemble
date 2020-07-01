@@ -19,9 +19,19 @@ class RunningEntriesController < ApplicationController
 
   # GET /running_entries/new
   def new
-    redirect_to "http://www.strava.com/oauth/authorize?client_id=" + ENV["STRAVA_CLIENT_ID"] +
-                "&response_type=code&redirect_uri=" + ENV["STRAVA_REDIRECT_URI"] + 
-                "&approval_prompt=force&scope=" + ENV["STRAVA_REQUESTED_SCOPES"]
+    logger.debug "Hey!? DEBUG!! current user #{current_user.attributes.inspect}"
+    strava_token_expires_at = current_user.strava_expires_at.to_i
+    logger.debug "strava_token_expires_at" + strava_token_expires_at.to_s
+    valid_token = Time.at(strava_token_expires_at) > Time.now
+    logger.debug "access_token_nil? " + (current_user.strava_access_token.nil?).to_s
+    logger.debug "valid_token " + valid_token.to_s
+    logger.debug (current_user.strava_access_token.nil?) and valid_token
+    if (current_user.strava_access_token).nil? or !valid_token
+      redirect_to "http://www.strava.com/oauth/authorize?client_id=" + ENV["STRAVA_CLIENT_ID"] +
+                  "&response_type=code&redirect_uri=" + ENV["STRAVA_REDIRECT_URI"] + 
+                  "&approval_prompt=force&scope=" + ENV["STRAVA_REQUESTED_SCOPES"]
+    end
+    @running_entry = RunningEntry.new()
   end
 
   # GET /running_entries/1/edit
