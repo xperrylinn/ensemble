@@ -1,4 +1,21 @@
-<h1>New Running Entry</h1>
+<h1>New Running Entry From Strava</h1>
+
+<% strava_access_token = current_user.strava_access_token %>
+<%= strava_access_token %>
+
+<% uri = "https://www.strava.com/api/v3/athlete/activities?" %>
+
+<% bearer_token_string = 'Bearer ' + strava_access_token %>
+
+<% uri = URI.parse(uri) %>
+<%= uri.class %>
+<% http = Net::HTTP.new(uri.host, uri.port) %>
+<% http.use_ssl = true %>
+<% request = Net::HTTP::Get.new(uri.request_uri) %>
+<% request["Authorization"] = bearer_token_string %>
+
+<% response = http.request(request) %>
+<%= response.body %>
 
 <%= render 'form', running_entry: @running_entry %>
 
