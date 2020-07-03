@@ -15,9 +15,11 @@
 <% response = http.request(request) %>
 <% response.body %>
 <% activities = JSON.parse(response.body) %>
+
 <% activities.each do |activity| %>
     <p>
-    <%= activity["name"] + " " + activity["start_date"]%>
+    <%= link_to activity["name"] + " " + activity["start_date"], 
+        '/running_entries/new/' + activity["id"].to_s %>
     </p>
 <% end %>
 
