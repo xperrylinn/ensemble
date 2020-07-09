@@ -1,3 +1,10 @@
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9kH1Zs0Rh-w1Wa2iOGec9JdQGdhmq5MA" async defer></script>
+<script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
+<script src='//cdn.jsdelivr.net/gmaps4rails/2.1.2/gmaps4rails.js'> </script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js'> </script>
+
+
 <p> New Entry from Strava Acivity ID: <%= params["id"] %> </p>
 
 <% strava_access_token = current_user.strava_access_token %>
@@ -13,4 +20,77 @@
 <% request["Authorization"] = bearer_token_string %>
 
 <% response = http.request(request) %>
-<%= response.body %>
+<% polyline = JSON.parse(response.body)["map"]["polyline"] %>
+
+<% decoded_polyline = Polylines::Decoder.decode_polyline(polyline) %>
+
+
+<% lat_lon_hash_array = Array.new %>
+<% decoded_polyline.each do |item| %>
+    <% lat_long_hash = {"lat" => item[0].to_f, "lng" => item[1].to_f} %>
+    <% lat_lon_hash_array.append(lat_long_hash) %>
+<% end %>
+<% lat_lon_hash_array %>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Polylines</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB9kH1Zs0Rh-w1Wa2iOGec9JdQGdhmq5MA&callback=initMap&libraries=&v=weekly"
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      (function(exports) {
+        "use strict";
+
+        // This example creates a 2-pixel-wide red polyline showing the path of
+        // the first trans-Pacific flight between Oakland, CA, and Brisbane,
+        // Australia which was made by Charles Kingsford Smith.
+        function initMap() {
+          var map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: {
+              lat: <%= decoded_polyline[0][0].to_f %>,
+              lng: <%= decoded_polyline[0][1].to_f %>
+            },
+            mapTypeId: "terrain"
+          });
+
+          var x = <%=raw lat_lon_hash_array.to_json%>;
+          console.log(x);
+          var flightPlanCoordinates = x;
+          var flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+          });
+          flightPath.setMap(map);
+        }
+
+        exports.initMap = initMap;
+      })((this.window = this.window || {}));
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>

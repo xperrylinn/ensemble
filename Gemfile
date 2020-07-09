@@ -65,4 +65,14 @@ gem "aws-sdk-s3", require: false
 # Final Redirect URL
 gem 'final_redirect_url'
 
+# Google Maps 4 Rails
+gem 'gmaps4rails'
 
+# Coffee-Rails
+gem 'coffee-rails'
+
+# Underscore Rails
+gem 'underscore-rails'
+
+# Polylines 
+gem 'polylines'

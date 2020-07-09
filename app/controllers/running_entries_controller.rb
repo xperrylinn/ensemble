@@ -30,6 +30,20 @@ class RunningEntriesController < ApplicationController
   end
 
   def new_from_strava
+    @running_entry = RunningEntry.new()
+    strava_access_token = current_user.strava_access_token
+    uri = "https://www.strava.com/api/v3/activities/" + params["id"].to_s + "?"
+    bearer_token_string = 'Bearer ' + strava_access_token
+    uri = URI.parse(uri)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    request = Net::HTTP::Get.new(uri.request_uri)
+    request["Authorization"] = bearer_token_string
+    response = http.request(request)
+    logger.debug @running_entry.attributes
+    # @running_entry.update( 
+    #   strava_entry: response.body
+    # )
   end
 
   # GET /running_entries/1/edit
