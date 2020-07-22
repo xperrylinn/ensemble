@@ -40,7 +40,7 @@ class RunningEntriesController < ApplicationController
     request = Net::HTTP::Get.new(uri.request_uri)
     request["Authorization"] = bearer_token_string
     response = http.request(request)
-    logger.debug @running_entry.attributes
+    logger.debug "Hey!? DEBUG!! #{@running_entry.attributes}"
     # @running_entry.update( 
     #   strava_entry: response.body
     # )
@@ -55,6 +55,7 @@ class RunningEntriesController < ApplicationController
   def create
     logger.debug "Hey!? DEBUG!! #{params}"
     @running_entry = RunningEntry.new(running_entry_params)
+
 
     respond_to do |format|
       if @running_entry.save
@@ -99,6 +100,6 @@ class RunningEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def running_entry_params
-      params.require(:running_entry).permit(:strava_activity)
+      params.require(:running_entry).permit(:strava_entry, :activity_id, :title, :text, :type)
     end
 end

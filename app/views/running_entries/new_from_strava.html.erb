@@ -20,17 +20,55 @@
 <% request["Authorization"] = bearer_token_string %>
 
 <% response = http.request(request) %>
-<% polyline = JSON.parse(response.body)["map"]["polyline"] %>
+<% response.body %>
+<% polyline = JSON.parse(response.body)["map"]["summary_polyline"] %>
 
 <% decoded_polyline = Polylines::Decoder.decode_polyline(polyline) %>
 
+<%= form_with(model: @running_entry, local: true) do |form| %>
+    <% if @running_entry.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@running_entry.errors.count, "error") %> prohibited this running_entry from being saved:</h2>
+  
+        <ul>
+          <% @running_entry.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <%= form.label "Add Images"%>
+    <%= form.file_field :images %><br><br> 
+  
+    <p>
+      <%= form.label :title %><br>
+      <%= form.text_field :title %>
+    </p>
+  
+    <p>
+      <%= form.label :text %><br>
+      <%= form.text_area :text %>
+    </p>
+  
+    <%= form.hidden_field :strava_entry, value: response.body %>
+
+    <%= form.hidden_field :activity_id, value: 2 %>
+  
+    <%= form.hidden_field :type, value: "RunningEntry" %>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
 
 <% lat_lon_hash_array = Array.new %>
 <% decoded_polyline.each do |item| %>
-    <% lat_long_hash = {"lat" => item[0].to_f, "lng" => item[1].to_f} %>
+    <% lat = item[0].to_f %>
+    <% lon = item[1].to_f %>
+    <% lat_long_hash = {"lat" => lat, "lng" => lon} %> 
     <% lat_lon_hash_array.append(lat_long_hash) %>
 <% end %>
-<% lat_lon_hash_array %>
 
 <!DOCTYPE html>
 <html>
@@ -45,7 +83,8 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+        height: 50%;
+        width: 50%;
       }
 
       /* Optional: Makes the sample page fill the window. */
@@ -62,20 +101,25 @@
 
         // This example creates a 2-pixel-wide red polyline showing the path of
         // the first trans-Pacific flight between Oakland, CA, and Brisbane,
-        // Australia which was made by Charles Kingsford Smith.
+        // Australia which was madse by Charles Kingsford Smith.
         function initMap() {
           var map = new google.maps.Map(document.getElementById("map"), {
             zoom: 12,
             center: {
-              lat: <%= decoded_polyline[0][0].to_f %>,
-              lng: <%= decoded_polyline[0][1].to_f %>
+              lat: 180,
+              lng: 0
             },
             mapTypeId: "terrain"
           });
 
-          var x = <%=raw lat_lon_hash_array.to_json%>;
-          console.log(x);
-          var flightPlanCoordinates = x;
+          var flightPlanCoordinates = <%=raw lat_lon_hash_array.to_json%>;
+
+          var bounds = new google.maps.LatLngBounds();
+          for (var i = 0; i < flightPlanCoordinates.length; i++) {
+            bounds.extend(flightPlanCoordinates[i]);
+          }
+          map.fitBounds(bounds);
+
           var flightPath = new google.maps.Polyline({
             path: flightPlanCoordinates,
             geodesic: true,
@@ -91,6 +135,9 @@
     </script>
   </head>
   <body>
+    <p> 
+        Route: 
+    </p>
     <div id="map"></div>
   </body>
 </html>
