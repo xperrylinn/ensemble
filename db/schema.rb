@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_162542) do
+ActiveRecord::Schema.define(version: 2020_07_26_191231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 2020_07_21_162542) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "activity_id"
     t.string "type"
+    t.integer "entryable_id"
+    t.string "entryable_type"
   end
 
   create_table "running_entries", id: :serial, force: :cascade do |t|
