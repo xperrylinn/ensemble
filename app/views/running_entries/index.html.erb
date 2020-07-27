@@ -13,7 +13,7 @@
   <tbody>
     <% @running_entries.each do |running_entry| %>
       <tr>
-        <td><%= running_entry.strava_activity %></td>
+        <td><%= running_entry.strava_entry %></td>
         <td><%= link_to 'Show', running_entry %></td>
         <td><%= link_to 'Edit', edit_running_entry_path(running_entry) %></td>
         <td><%= link_to 'Destroy', running_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
