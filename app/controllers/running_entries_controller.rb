@@ -53,10 +53,17 @@ class RunningEntriesController < ApplicationController
   # POST /running_entries
   # POST /running_entries.json
   def create
-    logger.debug "Hey!? DEBUG!! #{params}"
+    logger.debug "Hey!? DEBUG!! params #{params}"
+    logger.debug "Hey!? DEBUG!! params.running_entry #{params[:running_entry]}"
     @running_entry = RunningEntry.new(running_entry_params)
+    logger.debug "Hey!? DEBUG!! #{@running_entry.id}"
+    logger.debug "Hey!? DEBUG!! generate_entry_params #{generate_entry_params(@running_entry.id, "RunningEntry")}"
+    @entry = Entry.new(generate_entry_params(@running_entry.id, "RunningEntry"))
+    @entry.save
+    logger.debug "Hey!? DEBUG!! #{@entry.attributes.inspect}"
 
 
+    
     respond_to do |format|
       if @running_entry.save
         format.html { redirect_to @running_entry, notice: 'Running entry was successfully created.' }
@@ -101,5 +108,22 @@ class RunningEntriesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def running_entry_params
       params.require(:running_entry).permit(:strava_entry, :activity_id, :title, :text, :type)
+      { "strava_entry" => params[:running_entry][:strava_entry]}
     end
+
+    # Generate params for creating new Entry
+    def generate_entry_params(entryable_id, entryable_type)
+      logger.debug "#{params}"
+      logger.debug "yoooo title check yeeo #{params[:title]}"
+      entry_params = { 
+        "title" => params[:running_entry][:title], 
+        "text" => params[:running_entry][:text], 
+        "activity_id" => params[:running_entry][:activity_id],
+        "entryable_id" => entryable_id,
+        "entryable_type" => entryable_type
+      }
+      logger.debug "Hey!? DEBUG generate_entry_params!! #{entry_params}"
+      entry_params
+    end
+
 end
