@@ -40,10 +40,6 @@ class RunningEntriesController < ApplicationController
     request = Net::HTTP::Get.new(uri.request_uri)
     request["Authorization"] = bearer_token_string
     response = http.request(request)
-    logger.debug "Hey!? DEBUG!! #{@running_entry.attributes}"
-    # @running_entry.update( 
-    #   strava_entry: response.body
-    # )
   end
 
   # GET /running_entries/1/edit
@@ -54,8 +50,6 @@ class RunningEntriesController < ApplicationController
   # POST /running_entries.json
   def create
     
-    logger.debug "Hey!? DEBUG!! params #{params}"
-    logger.debug "Hey!? DEBUG!! params.running_entry #{params[:running_entry]}"
     @running_entry = RunningEntry.new(running_entry_params)
     
     respond_to do |format|
@@ -67,10 +61,7 @@ class RunningEntriesController < ApplicationController
         format.json { render json: @running_entry.errors, status: :unprocessable_entity }
       end
 
-    logger.debug "Hey!? DEBUG!! running_entry.id #{@running_entry.id}"
-    logger.debug "Hey!? DEBUG!! generate_entry_params #{generate_entry_params(@running_entry.id, "RunningEntry")}"
     @entry = Entry.new(generate_entry_params(@running_entry.id, "RunningEntry"))
-    logger.debug "Hey!? DEBUG!! #{@entry.attributes.inspect}"
     @entry.save
 
     end
@@ -116,9 +107,6 @@ class RunningEntriesController < ApplicationController
 
     # Generate params for creating new Entry
     def generate_entry_params(entryable_id, entryable_type)
-      logger.debug "#{params}"
-      logger.debug "yoooo title check yeeo #{params[:title]}"
-      logger.debug "yoooo entryable_id in generate_entry_params #{entryable_id}"
       entry_params = { 
         "title" => params[:running_entry][:title], 
         "text" => params[:running_entry][:text], 
@@ -126,7 +114,6 @@ class RunningEntriesController < ApplicationController
         "entryable_id" => entryable_id,
         "entryable_type" => entryable_type
       }
-      logger.debug "Hey!? DEBUG generate_entry_params!! #{entry_params}"
       entry_params
     end
 

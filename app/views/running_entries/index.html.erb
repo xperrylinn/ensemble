@@ -13,6 +13,11 @@
   <tbody>
     <% @running_entries.each do |running_entry| %>
       <tr>
+        <td><%= running_entry.entry.title %></td>
+        <td><%= running_entry.entry.text %></td>
+        <% if running_entry.entry.images.attached? %>
+          <td><%= image_tag running_entry.entry.images[0] %><td>
+        <% end %>
         <td><%= running_entry.strava_entry %></td>
         <td><%= link_to 'Show', running_entry %></td>
         <td><%= link_to 'Edit', edit_running_entry_path(running_entry) %></td>

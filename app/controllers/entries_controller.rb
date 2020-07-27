@@ -9,7 +9,6 @@ class EntriesController < ApplicationController
 
     def new
         @entry = Entry.new(activity_id: params[:id])
-        logger.debug "Hey!? DEBUG!! #{@entry.instance_variables}"
     end
 
     def edit
@@ -17,9 +16,7 @@ class EntriesController < ApplicationController
     end
 
     def create
-        logger.debug "Hey!? DEBUG!! #{params}"
         @entry = Entry.new(entry_params)
-        logger.debug "Hey!? DEBUG!! #{entry_params}"
         @entry.images.attach(params[:images])
         if @entry.save
           redirect_to @entry
@@ -47,7 +44,6 @@ class EntriesController < ApplicationController
        
     private
     def entry_params
-        logger.debug "Hey!? DEBUG!! #{params}"
         params.require(:entry).permit(:title, :text, :activity_id, :images)
     end
 end
