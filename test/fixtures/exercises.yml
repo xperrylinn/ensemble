@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lifting_entry: one
+  sets: 
+  reps: 1
+  name: MyString
+  rpe: 1
+  weight: 1
+  notes: MyText
+  rep_units: MyString
+  weight_units: MyString
+
+two:
+  lifting_entry: two
+  sets: 
+  reps: 1
+  name: MyString
+  rpe: 1
+  weight: 1
+  notes: MyText
+  rep_units: MyString
+  weight_units: MyString

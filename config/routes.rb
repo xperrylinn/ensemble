@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'strava/exchange_token'
   resources :running_entries
+  resources :lifting_entries
+  resources :exercises
   devise_for :users
   get 'welcome/index'
   get '/entries/new/:id', to: 'entries#new'

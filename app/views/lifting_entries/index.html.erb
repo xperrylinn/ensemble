@@ -1,0 +1,29 @@
+<h1>Lifting Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Strava activity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lifting_entries.each do |lifting_entry| %>
+      <tr>
+        <td><%= lifting_entry.entry.title %></td>
+        <td><%= lifting_entry.entry.text %></td>
+        <% if lifting_entry.entry.images.attached? %>
+          <td><%= image_tag lifting_entry.entry.images[0] %><td>
+        <% end %>
+        <td><%= link_to 'Show', lifting_entry %></td>
+        <td><%= link_to 'Edit', edit_lifting_entry_path(lifting_entry) %></td>
+        <td><%= link_to 'Destroy', lifting_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lifting Entry', new_lifting_entry_path %>
