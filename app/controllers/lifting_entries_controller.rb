@@ -83,14 +83,10 @@ class LiftingEntriesController < ApplicationController
       # Only allow a list of trusted parameters through.
       def lifting_entry_params
         params.require(:lifting_entry).permit(
-            :lifting_entry_id, 
-            :sets, 
-            :reps, 
-            :name, 
-            :rpe, 
-            :weight, 
-            :notes, 
-            :rep_units
+            :title, 
+            :text, 
+            :activity_id, 
+            :exercises
         )
       end
   

@@ -49,36 +49,28 @@
       </tr>
       <tr id="exercise_row">
         <td>      
-          <label for="lifting_entry_name">Name</label>
-          <input type="text" name="lifting_entry[name]" id="lifting_entry_name">
+          <input type="text" name="lifting_entry[exercises][exercise_0][name]" id="lifting_entry_name">
         </td>
         <td>      
-          <label for="lifting_entry_sets">Sets</label>
-          <input type="text" name="lifting_entry[sets]" id="lifting_entry_sets">
+          <input type="text" name="lifting_entry[exercises][exercise_0][sets]" id="lifting_entry_sets">
         </td>
         <td>      
-          <label for="lifting_entry_reps">Reps</label>
-          <input type="text" name="lifting_entry[reps]" id="lifting_entry_reps">
+          <input type="text" name="lifting_entry[exercises][exercise_0][reps]" id="lifting_entry_reps">
         <td>      
-          <label for="lifting_entry_rep_units">Rep Units</label>
-          <input type="text" name="lifting_entry[rep_units]" id="lifting_entry_rep_units">
+          <input type="text" name="lifting_entry[exercises][exercise_0][rep_units]" id="lifting_entry_rep_units">
         </td>
         </td>
         <td>      
-          <label for="lifting_entry_weight">Weight</label>
-          <input type="text" name="lifting_entry[weight]" id="lifting_entry_weight">
+          <input type="text" name="lifting_entry[exercises][exercise_0][weight]" id="lifting_entry_weight">
         </td>
         <td>      
-          <label for="lifting_entry_weight_units">Weight Units</label>
-          <input type="text" name="lifting_entry[weight_units]" id="lifting_entry_weight_units">
+          <input type="text" name="lifting_entry[exercises][exercise_0][weight_units]" id="lifting_entry_weight_units">
         </td>
         <td>      
-          <label for="lifting_entry_rpe">RPE</label>
-          <input type="text" name="lifting_entry[rpe]" id="lifting_entry_rpe">
+          <input type="text" name="lifting_entry[exercises][exercise_0][rpe]" id="lifting_entry_rpe">
         </td>
         <td>      
-          <label for="lifting_entry_rpe">Notes</label>
-          <input type="text" name="lifting_entry[notes]" id="lifting_entry_notes">
+          <input type="text" name="lifting_entry[exercises][exercise_0][notes]" id="lifting_entry_notes">
         </td>
       </tr>
       <tr>
@@ -95,7 +87,18 @@
   <% end %>
 
 <script>
+  var exercise_enum = 1;
   $("#add_exercise_button").click(function() {
-    $("#exercise_row").clone().insertAfter($("#exercise_row"));
+    var schema_labels = ["name", "sets", "reps", "rep_units", "weight", "weight_units", "rpe", "notes"];
+    var cloned_row_html = $("#exercise_row").clone().html();
+    cloned_row_html.replace("exercise_" + (exercise_enum - 1).toString(), "exercise_" + exercise_enum.toString());
+    console.log(cloned_row_html.replace(/exercise_\d/g, "exercise_" + exercise_enum.toString()));
+    for (i = 0, len = schema_labels.length; i < len; i++) {
+      console.log(typeof cloned_row_html);    
+    };
+
+    $("#exercise_row").clone().replaceWith("exercises_" + (exercise_enum - 1).toString()).insertAfter($("#exercise_row"));
+    
+    exercise_enum += 1;
   });
 </script>

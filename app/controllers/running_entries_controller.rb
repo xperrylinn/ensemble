@@ -101,7 +101,13 @@ class RunningEntriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def running_entry_params
-      params.require(:running_entry).permit(:strava_entry, :activity_id, :title, :text, :type)
+      params.require(:running_entry).permit(
+        :strava_entry, 
+        :activity_id, 
+        :title, 
+        :text, 
+        :type
+      )
       { "strava_entry" => params[:running_entry][:strava_entry]}
     end
 

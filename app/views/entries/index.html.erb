@@ -10,7 +10,7 @@
   <% @entries.each do |entry| %>
     <tr>
       <td><%= entry.title %></td>
-      <td><%= entry.text %></td>
+      <td><%= entry.text %></td>  
       <td><%= entry.entryable_id %></td>
       <td><%= entry.entryable_type %></td>
       <td><%= link_to 'Show', entry_path(entry) %></td>
