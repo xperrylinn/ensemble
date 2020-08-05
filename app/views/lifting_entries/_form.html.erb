@@ -1,7 +1,5 @@
 <head>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
 <%= form_with model: @lifting_entry, local: true do |form| %>
     
@@ -55,32 +53,32 @@
           <input type="text" name="lifting_entry[name]" id="lifting_entry_name">
         </td>
         <td>      
-          <%= form.label :sets %><br>
-          <%= form.text_field :sets %>
+          <label for="lifting_entry_sets">Sets</label>
+          <input type="text" name="lifting_entry[sets]" id="lifting_entry_sets">
         </td>
         <td>      
-          <%= form.label :reps %><br>
-          <%= form.text_field :reps %>
+          <label for="lifting_entry_reps">Reps</label>
+          <input type="text" name="lifting_entry[reps]" id="lifting_entry_reps">
         <td>      
-          <%= form.label :rep_units %><br>
-          <%= form.text_field :rep_units %>
+          <label for="lifting_entry_rep_units">Rep Units</label>
+          <input type="text" name="lifting_entry[rep_units]" id="lifting_entry_rep_units">
         </td>
         </td>
         <td>      
-          <%= form.label :weight %><br>
-          <%= form.text_field :weight %>
+          <label for="lifting_entry_weight">Weight</label>
+          <input type="text" name="lifting_entry[weight]" id="lifting_entry_weight">
         </td>
         <td>      
-          <%= form.label :weight_units %><br>
-          <%= form.text_field :weight_units %>
+          <label for="lifting_entry_weight_units">Weight Units</label>
+          <input type="text" name="lifting_entry[weight_units]" id="lifting_entry_weight_units">
         </td>
         <td>      
-          <%= form.label :rpe %><br>
-          <%= form.text_field :rpe %>
+          <label for="lifting_entry_rpe">RPE</label>
+          <input type="text" name="lifting_entry[rpe]" id="lifting_entry_rpe">
         </td>
         <td>      
-          <%= form.label :notes %><br>
-          <%= form.text_field :notes %>
+          <label for="lifting_entry_rpe">Notes</label>
+          <input type="text" name="lifting_entry[notes]" id="lifting_entry_notes">
         </td>
       </tr>
       <tr>
@@ -98,8 +96,6 @@
 
 <script>
   $("#add_exercise_button").click(function() {
-    alert("Hello! I am an alert box!!");
-    var new_exercise_row_div = '<tr id="exercise_row"><td><label for="lifting_entry_name">Name</label><input type="text" name="lifting_entry[name]" id="lifting_entry_name"></td>';
-    $("#exercise_row").after(new_exercise_row_div);
+    $("#exercise_row").clone().insertAfter($("#exercise_row"));
   });
 </script>
