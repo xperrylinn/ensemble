@@ -1,3 +1,8 @@
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
 <%= form_with model: @lifting_entry, local: true do |form| %>
     
     <% if @lifting_entry.errors.any? %>
@@ -14,6 +19,8 @@
       </div>
     <% end %>
 
+    <%-# Entry data fields -%>
+
     <%= form.label "Add Images"%>
     <%= form.file_field :images %><br><br> 
    
@@ -29,8 +36,70 @@
 
     <%= form.hidden_field :activity_id, value: 1 %>
     
+    <%-# Exercise data fields -%>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Sets</th>
+        <th>Reps</th>
+        <th>Rep units</th>
+        <th>Weight</th>
+        <th>Weight Units</th>
+        <th>RPE</th>
+        <th>Notes</th>
+      </tr>
+      <tr id="exercise_row">
+        <td>      
+          <label for="lifting_entry_name">Name</label>
+          <input type="text" name="lifting_entry[name]" id="lifting_entry_name">
+        </td>
+        <td>      
+          <%= form.label :sets %><br>
+          <%= form.text_field :sets %>
+        </td>
+        <td>      
+          <%= form.label :reps %><br>
+          <%= form.text_field :reps %>
+        <td>      
+          <%= form.label :rep_units %><br>
+          <%= form.text_field :rep_units %>
+        </td>
+        </td>
+        <td>      
+          <%= form.label :weight %><br>
+          <%= form.text_field :weight %>
+        </td>
+        <td>      
+          <%= form.label :weight_units %><br>
+          <%= form.text_field :weight_units %>
+        </td>
+        <td>      
+          <%= form.label :rpe %><br>
+          <%= form.text_field :rpe %>
+        </td>
+        <td>      
+          <%= form.label :notes %><br>
+          <%= form.text_field :notes %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" id="add_exercise_button">Add Exercise</button>
+        </td>
+      </tr>
+    </table>
+            
     <p>
       <%= form.submit %>
     </p>
    
   <% end %>
+
+<script>
+  $("#add_exercise_button").click(function() {
+    alert("Hello! I am an alert box!!");
+    var new_exercise_row_div = '<tr id="exercise_row"><td><label for="lifting_entry_name">Name</label><input type="text" name="lifting_entry[name]" id="lifting_entry_name"></td>';
+    $("#exercise_row").after(new_exercise_row_div);
+  });
+</script>
