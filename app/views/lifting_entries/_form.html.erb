@@ -89,9 +89,8 @@
 <script>
   var exercise_enum = 1;
   $("#add_exercise_button").click(function() {
-    var schema_labels = ["name", "sets", "reps", "rep_units", "weight", "weight_units", "rpe", "notes"];
     var cloned_row_html = $("#exercise_row").clone().html();
-    cloned_row_html = '<tr>' + cloned_row_html.replace(/exercise_\d/g, "exercise_" + exercise_enum.toString()) + '</tr>';
+    cloned_row_html = '<tr id="exercise_row">' + cloned_row_html.replace(/exercise_\d/g, "exercise_" + exercise_enum.toString()) + '</tr>';
     console.log(cloned_row_html);
     $("#exercise_row").before(cloned_row_html);
     exercise_enum += 1;
