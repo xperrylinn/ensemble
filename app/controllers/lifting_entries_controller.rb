@@ -30,8 +30,8 @@ class LiftingEntriesController < ApplicationController
     # POST /lifting_entries
     # POST /lifting_entries.json
     def create
-      
-      @lifting_entry = LiftingEntry.new(lifting_entry_params)
+      lifting_entry_params
+      @lifting_entry = LiftingEntry.new()
       
       respond_to do |format|
         if @lifting_entry.save
@@ -41,13 +41,37 @@ class LiftingEntriesController < ApplicationController
           format.html { render :new }
           format.json { render json: @lifting_entry.errors, status: :unprocessable_entity }
         end
-  
+      end
+      
       @entry = Entry.new(generate_entry_params(@lifting_entry.id, "LiftingEntry"))
       @entry.save
-  
+      logger.debug params[:lifting_entry][:exercises]
+      logger.debug params[:lifting_entry][:exercises].class
+      params[:lifting_entry][:exercises].each do |exercise_params|
+        logger.debug exercise_params
+        logger.debug exercise_params.class
+        @new_exercise = Exercise.create(
+          {
+            "lifting_entry" => @lifting_entry,
+            "name" => exercise_params[1]["name"],
+            "sets" => exercise_params[1]["sets"],
+            "reps" => exercise_params[1]["reps"],
+            "rep_units" => exercise_params[1]["rep_units"],
+            "weight" => exercise_params[1]["weight"],
+            "weight_units" => exercise_params[1]["weight_units"],
+            "rpe" => exercise_params[1]["rpe"],
+            "notes" => exercise_params[1]["notes"],
+        })
+        
+        logger.debug @new_exercise.attributes.inspect
+        
+        if @new_exercise.save
+          logger.debug "saving @new_exercise"
+        else
+          logger.debug "not saving @new_exercise" 
+          logger.debug  @new_exercise.errors.full_messages       
+        end
       end
-  
-  
     end
   
     # PATCH/PUT /lifting_entries/1
@@ -83,10 +107,10 @@ class LiftingEntriesController < ApplicationController
       # Only allow a list of trusted parameters through.
       def lifting_entry_params
         params.require(:lifting_entry).permit(
-            :title, 
-            :text, 
+            :exercises,
             :activity_id, 
-            :exercises
+            :title, 
+            :text
         )
       end
   

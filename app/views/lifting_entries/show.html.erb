@@ -1,0 +1,49 @@
+<h1>Lifting Entry</h1>
+<h2>Title:</h2>
+<p><%= @lifting_entry.entry.title %></p>
+<h2>Text:</h2>
+<p><%= @lifting_entry.entry.text %></p>
+<h2>Exercises:</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Sets</th>
+        <th>Reps</th>
+        <th>Rep units</th>
+        <th>Weight</th>
+        <th>Weight Units</th>
+        <th>RPE</th>
+        <th>Notes</th>
+    </tr>
+        <% @lifting_entry.exercises.each do |exercise| %>
+            <tr>
+                <td>      
+                    <%= exercise.name %>
+                </td>
+                <td>      
+                    <%= exercise.sets %>
+                </td>
+                <td>      
+                    <%= exercise.reps %>
+                <td>      
+                    <%= exercise.rep_units %>
+                </td>
+                </td>
+                <td>      
+                    <%= exercise.weight %>
+                </td>
+                <td>      
+                    <%= exercise.weight_units %>
+                </td>
+                <td>      
+                    <%= exercise.rpe %>
+                </td>
+                <td>      
+                    <%= exercise.notes %>
+                </td>
+            </tr>
+        <% end %>
+</table>
+
+<%= link_to 'Edit', edit_lifting_entry_path(@lifting_entry) %> |
+<%= link_to 'Back', lifting_entries_path %>
