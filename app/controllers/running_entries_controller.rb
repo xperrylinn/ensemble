@@ -62,6 +62,7 @@ class RunningEntriesController < ApplicationController
       end
 
     @entry = Entry.new(generate_entry_params(@running_entry.id, "RunningEntry"))
+    @entry.images.attach(params[:running_entry][:images])
     @entry.save
 
     end
@@ -106,7 +107,8 @@ class RunningEntriesController < ApplicationController
         :activity_id, 
         :title, 
         :text, 
-        :type
+        :type,
+        :images
       )
       { "strava_entry" => params[:running_entry][:strava_entry]}
     end

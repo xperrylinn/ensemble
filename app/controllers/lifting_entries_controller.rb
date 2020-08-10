@@ -44,6 +44,7 @@ class LiftingEntriesController < ApplicationController
       end
       
       @entry = Entry.new(generate_entry_params(@lifting_entry.id, "LiftingEntry"))
+      @entry.images.attach(params[:lifting_entry][:images])
       @entry.save
       logger.debug params[:lifting_entry][:exercises]
       logger.debug params[:lifting_entry][:exercises].class
@@ -110,7 +111,8 @@ class LiftingEntriesController < ApplicationController
             :exercises,
             :activity_id, 
             :title, 
-            :text
+            :text,
+            :images
         )
       end
   

@@ -3,6 +3,11 @@
 <p><%= @lifting_entry.entry.title %></p>
 <h2>Text:</h2>
 <p><%= @lifting_entry.entry.text %></p>
+<h2>Media:</h2>
+<%= debug @lifting_entry.entry.images[0] %>
+<% if @lifting_entry.entry.images.attached? %>
+    <%= image_tag @lifting_entry.entry.images[0] %>
+<% end %>
 <h2>Exercises:</h2>
 <table>
     <tr>
