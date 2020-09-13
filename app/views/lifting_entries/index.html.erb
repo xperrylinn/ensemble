@@ -1,3 +1,4 @@
+<%= stylesheet_link_tag "pictures" %>
 <%= render 'shared/header' %>
 
 <h1>Lifting Entries</h1>
@@ -13,14 +14,28 @@
   <tbody>
     <% @lifting_entries.each do |lifting_entry| %>
       <tr>
-        <td><%= lifting_entry.entry.title %></td>
-        <td><%= lifting_entry.entry.text %></td>
-        <% if lifting_entry.entry.images.attached? %>
-          <td><%= image_tag lifting_entry.entry.images[0] %><td>
+        <% if !lifting_entry.entry.nil? %>
+          <td>
+            <h1><%= lifting_entry.entry.title %></h1>
+          </td>
+          <td>
+            <%= lifting_entry.entry.text[0..25] %> ...
+          </td>
+          <td>
+            <% if lifting_entry.entry.images.attached? %>
+              <%= image_tag lifting_entry.entry.images[0], size: '200' %>
+            <% end %>
+          </td>
         <% end %>
-        <td><%= link_to 'Show', lifting_entry %></td>
-        <td><%= link_to 'Edit', edit_lifting_entry_path(lifting_entry) %></td>
-        <td><%= link_to 'Destroy', lifting_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', lifting_entry %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_lifting_entry_path(lifting_entry) %>
+        </td>
+        <td>
+          <%= link_to 'Destroy', lifting_entry, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
