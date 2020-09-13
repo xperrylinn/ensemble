@@ -1,2 +1,10 @@
+<%= render 'shared/header' %>
+
 <h1>Ensemble</h1>
-<%= link_to 'My Activities', controller: 'activities' %>
+
+<% if !current_user.nil? %>
+    <p>
+        <%= link_to 'My Activities', controller: 'activities' %>
+    </p>
+<% end %>
+

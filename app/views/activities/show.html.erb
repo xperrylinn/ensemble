@@ -8,13 +8,14 @@
   <tr>
     <th>Title</th>
     <th>Text</th>
-    <th></th>
+    <th>Entryable</th>
   </tr>
  
   <% @activity.entries.each do |entry| %>
     <tr>
       <td><%= entry.title %></td>
       <td><%= entry.text %></td>
+      <td><%= entry.entryable %></td>
       <td><%= link_to 'Show', entry_path(entry) %></td>
       <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
       <td><%= link_to 'Destroy', entry_path(entry),

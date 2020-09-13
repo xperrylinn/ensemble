@@ -22,30 +22,14 @@
     </tr>
         <% @lifting_entry.exercises.each do |exercise| %>
             <tr>
-                <td>      
-                    <%= exercise.name %>
-                </td>
-                <td>      
-                    <%= exercise.sets %>
-                </td>
-                <td>      
-                    <%= exercise.reps %>
-                <td>      
-                    <%= exercise.rep_units %>
-                </td>
-                </td>
-                <td>      
-                    <%= exercise.weight %>
-                </td>
-                <td>      
-                    <%= exercise.weight_units %>
-                </td>
-                <td>      
-                    <%= exercise.rpe %>
-                </td>
-                <td>      
-                    <%= exercise.notes %>
-                </td>
+                <td><%= exercise.name %></td>
+                <td><%= exercise.sets %></td>
+                <td><%= exercise.reps %></td>      
+                <td><%= exercise.rep_units %></td>
+                <td><%= exercise.weight %></td>
+                <td><%= exercise.weight_units %></td>
+                <td><%= exercise.rpe %></td>
+                <td><%= exercise.notes %></td>
             </tr>
         <% end %>
 </table>

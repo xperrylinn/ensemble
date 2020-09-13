@@ -4,18 +4,28 @@
 <h2>Text:</h2>
 <p><%= @running_entry.entry.text %></p>
 <h2>Media:</h2>
-<%= debug @running_entry.entry.images[0] %>
 <% if @running_entry.entry.images.attached? %>
   <% @running_entry.entry.images.each do |image| %>
     <%= image_tag image %>
   <% end %>
 <% end %>
-<p>
-  <strong>Strava activity:</strong>
-  <%= @running_entry.entry.title %>
-  <%= @running_entry.entry.text %>
-  <%= @running_entry.strava_entry %>
-</p>
+<table>
+    <tr>
+      <th>Distance (m)</th>
+      <th>Avg Speed (m/s)</th>
+      <th>Moving Time (s)</th>
+      <th>Elapsed Time (s)</th>
+      <th>Total Elevation Gain (m)</th>
+    </tr>
+      <% strava_entry_hash = JSON.parse(@running_entry.strava_entry) %>
+      <td><%= strava_entry_hash["distance"] %></td>
+      <td><%= strava_entry_hash["average_speed"] %></td>
+      <td><%= strava_entry_hash["moving_time"] %></td>
+      <td><%= strava_entry_hash["elapsed_time"] %></td>
+      <td><%= strava_entry_hash["total_elevation_gain"] %></td> 
+    <tr>
+    </tr>
+</table>
 
 <%= link_to 'Edit', edit_running_entry_path(@running_entry) %> |
 <%= link_to 'Back', running_entries_path %>
