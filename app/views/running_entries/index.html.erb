@@ -7,22 +7,25 @@
 <table>
   <thead>
     <tr>
-      <th>Strava activity</th>
-      <th colspan="3"></th>
+      <th>Date</th>
+      <th>Title</th>
+      <th>Text</th>
+      <th>Media</th>
+      <th colspan="8"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @running_entries.each do |running_entry| %>
       <tr>
+        <td><%= running_entry.created_at %></td>
         <% if !running_entry.entry.nil? %>
           <td><%= running_entry.entry.title %></td>
           <td><%= running_entry.entry.text %></td>
           <% if running_entry.entry.images.attached? %>
-            <td><%= image_tag running_entry.entry.images[0] %><td>
+            <td><%= image_tag running_entry.entry.images[0], size: 200 %><td>
           <% end %>
         <% end %>
-        <td><%= running_entry.strava_entry %></td>
         <td><%= link_to 'Show', running_entry %></td>
         <td><%= link_to 'Edit', edit_running_entry_path(running_entry) %></td>
         <td><%= link_to 'Destroy', running_entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>

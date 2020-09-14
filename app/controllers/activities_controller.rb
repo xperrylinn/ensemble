@@ -5,6 +5,8 @@ class ActivitiesController < ApplicationController
 
     def show
         @activity = Activity.find(params[:id])
+        redirect_to lifting_entries_path if @activity.id == 1
+        redirect_to running_entries_path if @activity.id == 2
     end
     
     def new

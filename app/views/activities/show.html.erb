@@ -1,26 +1,28 @@
-
-<p>
-<strong>Name:</strong>
-<%= @activity.name %>
-</p>
+<strong>
+  <%= @activity.name %>
+</strong>
 
 <table>
   <tr>
+    <th>Date</th>
     <th>Title</th>
     <th>Text</th>
-    <th>Entryable</th>
   </tr>
  
   <% @activity.entries.each do |entry| %>
     <tr>
-      <td><%= entry.title %></td>
-      <td><%= entry.text %></td>
+      <td><%= entry.created_at %></td>
+      <td><%= link_to entry.title, entryable_route_helper(entry.entryable) %></td>
       <td><%= entry.entryable %></td>
-      <td><%= link_to 'Show', entry_path(entry) %></td>
-      <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
-      <td><%= link_to 'Destroy', entry_path(entry),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+      <td><%= entry.text %></td>
+      <td><%= link_to 'Show', entryable_route_helper(entry.entryable) %></td>
+      <td><%= link_to 'Edit', edit_entryable_route_helper(entry.entryable) %></td>
+      <td>
+        <%= link_to 'Destroy', entryable_route_helper(entry.entryable),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } 
+        %>
+      </td>
     </tr>
   <% end %>
 </table>
