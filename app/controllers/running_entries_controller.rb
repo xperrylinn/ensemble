@@ -120,7 +120,8 @@ class RunningEntriesController < ApplicationController
         "text" => params[:running_entry][:text], 
         "activity_id" => params[:running_entry][:activity_id],
         "entryable_id" => entryable_id,
-        "entryable_type" => entryable_type
+        "entryable_type" => entryable_type,
+        "user_id" => current_user.id
       }
       entry_params
     end
