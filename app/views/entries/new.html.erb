@@ -1,6 +1,9 @@
+<%= render "shared/header" %>
+
 <h1>New Entry</h1>
 
-<%= render 'form' %>
+<h2>select type:</h2>
+<h3><%= link_to 'Running Entry', new_running_entry_path %></h3>
+<h3><%= link_to 'Lifting Entry', new_lifting_entry_path %></h3>
  
-<%= link_to 'Back', entries_path %>
-<%= debug @entry %>
+<%= link_to 'Back', entries_by_user_path(current_user.id) %>

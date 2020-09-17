@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :entries
   resources :activities
   root 'welcome#index'
+  get '/user_entries/:id', to: 'entries#user_index', as: 'entries_by_user'
 end

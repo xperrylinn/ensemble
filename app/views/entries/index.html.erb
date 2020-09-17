@@ -1,17 +1,18 @@
+<%= render 'shared/header' %>
+
 <h1>Listing Entries</h1>
 <%= link_to 'New entry', new_entry_path %>
 <table>
   <tr>
     <th>Title</th>
     <th>Text</th>
-    <th>Entryable ID</th>
+    <th>Type</th>
   </tr>
  
   <% @entries.each do |entry| %>
     <tr>
       <td><%= entry.title %></td>
       <td><%= entry.text %></td>  
-      <td><%= entry.entryable_id %></td>
       <td><%= entry.entryable_type %></td>
       <td><%= link_to 'Show', entry_path(entry) %></td>
       <td><%= link_to 'Edit', edit_entry_path(entry) %></td>

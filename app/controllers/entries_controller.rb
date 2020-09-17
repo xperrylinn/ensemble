@@ -1,6 +1,18 @@
 class EntriesController < ApplicationController
     def index
+        # logger.debug "Entires#index params: #{params}"
+        # if params[:id].nil?
+        #     @entries = Entry.all
+        # else
+        #     logger.debug "User we found the user! #{params}"
+        #     @entries = Entry.all.where(user_id: params[:id])
+        # end
         @entries = Entry.all
+    end
+
+    def user_index
+        @entries = Entry.all.where(user_id: params[:id])
+        render "index"
     end
     
     def show

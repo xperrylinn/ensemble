@@ -123,7 +123,8 @@ class LiftingEntriesController < ApplicationController
           "text" => params[:lifting_entry][:text], 
           "activity_id" => params[:lifting_entry][:activity_id],
           "entryable_id" => entryable_id,
-          "entryable_type" => entryable_type
+          "entryable_type" => entryable_type,
+          "user_id" => current_user.id,
         }
         entry_params
       end
