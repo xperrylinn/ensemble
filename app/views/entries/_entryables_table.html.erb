@@ -1,0 +1,23 @@
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>User</th>
+            <th>Title</th>
+            <th>Text</th>
+            <th>Type</th>           
+        </tr>
+    </thead>
+    <tbody>
+        <%  @entries.each do |entry| %>
+            <tr>
+                <td><%= entry.created_at %></td>
+                <td><%= User.find(entry.user_id).email %></td>
+                <td><%= entry.title %></td>
+                <td><%= entry.text %></td>
+                <td><%= entry.entryable.class %></td>
+                <td><%= link_to 'Show', entryable_route_helper(entry.entryable) %></td>
+          </tr>
+        <% end %>
+    </tbody>
+</table>
