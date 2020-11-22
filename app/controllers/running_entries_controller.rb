@@ -63,7 +63,7 @@ class RunningEntriesController < ApplicationController
 
     @entry = Entry.new(generate_entry_params(@running_entry.id, "RunningEntry"))
     @entry.images.attach(params[:running_entry][:images])
-    @entry.save
+    @entry.save!
 
     end
 

@@ -45,7 +45,10 @@ class LiftingEntriesController < ApplicationController
       
       @entry = Entry.new(generate_entry_params(@lifting_entry.id, "LiftingEntry"))
       @entry.images.attach(params[:lifting_entry][:images])
-      @entry.save
+      result = @entry.save!
+      logger.debug result
+      logger.debug "@entry"
+      logger.debug @entry.inspect
       logger.debug params[:lifting_entry][:exercises]
       logger.debug params[:lifting_entry][:exercises].class
       params[:lifting_entry][:exercises].each do |exercise_params|

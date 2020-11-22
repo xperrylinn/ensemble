@@ -19,7 +19,7 @@
 <% activities.each do |activity| %>
     <p>
     <%= link_to activity["name"] + " " + activity["start_date"], 
-        '/running_entries/new/' + activity["id"].to_s %>
+        '/running_entries/new_from_strava/' + activity["id"].to_s %>
     </p>
 <% end %>
 
